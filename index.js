@@ -110,6 +110,9 @@ contributionsCard.innerHTML = totalContributions.toLocaleString();
 const raisedCard = document.getElementById("total-raised");
 
 // set inner HTML using template literal
+const totalRaised = GAMES_JSON.reduce((total, game) => {
+    return total + game.pledged;
+}, 0);
 raisedCard.innerHTML = `$${GAMES_JSON.reduce((total, game) => total + game.pledged, 0).toLocaleString()}`;
 
 // grab number of games card and set its inner HTML
@@ -204,9 +207,10 @@ const unfundedGamesString = unfundedGames.length === 0 ? "None" : unfundedGames.
 
 // create a new DOM element containing the template string and append it to the description container
 const description = `
-<p>Our company has ${GAMES_JSON.length} games available for funding.
-${unfundedGamesString} of these games still need funding.</p>
+<p>A total of $${totalRaised.toLocaleString()} has been raised for ${GAMES_JSON.length} games. Currently, ${unfundedGamesString} remain unfunded. We need your help to fund these amazing games!</p>
 `;
+
+descriptionContainer.innerHTML += description;
 
 
 /************************************************************************************
